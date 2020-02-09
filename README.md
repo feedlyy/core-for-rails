@@ -22,6 +22,18 @@ Copy the sample database.yml file and edit the database configuration as require
 cp config/database.yml.sample config/database.yml
 ```
 
+If you using postgresql, add this to database.yml
+
+```bash
+default: 
+port: 5432 (your db port)
+username: postgres (your username for postgre)
+password: postgres (your password for postgre)
+
+and change database name in your development, test or 
+production 
+```
+
 ##### 3. Create and setup the database
 
 Run the following commands to create and setup the database.
