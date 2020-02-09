@@ -14,12 +14,17 @@ The setups steps expect following tools installed on the system.
 git clone https://github.com/feedlyy/core-for-rails.git
 ```
 
-##### 2. Create database.yml file
-
-Copy the sample database.yml file and edit the database configuration as required.
+##### 2. Install all dependencies
 
 ```bash
-cp config/database.yml.sample config/database.yml
+bundle install
+```
+
+##### 3. Create and setup the database
+
+```ruby
+rake db:create
+rake db:setup
 ```
 
 If you using postgresql, add this to database.yml
@@ -34,13 +39,10 @@ and change database name in your development, test or
 production 
 ```
 
-##### 3. Create and setup the database
-
-Run the following commands to create and setup the database.
+migrate your migration
 
 ```ruby
-bundle exec rake db:create
-bundle exec rake db:setup
+rake db:migrate
 ```
 
 ##### 4. Start the Rails server
@@ -52,3 +54,16 @@ bundle exec rails s
 ```
 
 And now you can visit the site with the URL http://localhost:3000
+
+##### Extra
+
+For authentication, i'm currently using knock (https://github.com/nsarno/knock)
+
+go to ...\config\initializers\knock.rb
+
+```ruby
+change this
+config.token_secret_signature_key = -> { Rails.application.credentials.secret_key_base }
+to this
+config.token_secret_signature_key = -> { Rails.application.credentials.read }
+```
